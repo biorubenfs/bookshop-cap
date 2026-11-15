@@ -1,0 +1,7 @@
+@cds-models
+node_modules/
+gen/
+mta_archives/
+*.mtar
+.cdsrc-private.json
+default-env.json
