@@ -17,7 +17,8 @@
     "start": "cds-serve",
     "start:dev": "cds-tsx watch",
     "typecheck": "tsc --noEmit",
-    "build": "cds build --production"
+    "build": "cds build --production",
+    "typer": "cds-typer '*'"
   },
   "private": true,
   "imports": {

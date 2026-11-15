@@ -1,5 +1,6 @@
-@odata service CatalogService {
-  entity Books { 
-    key ID:Integer; title:String; author:String;
-  }
-} 
+using { sap.capire.bookshop as my } from '../db/schema';
+
+service CatalogService @(path: '/catalog') {
+  @readonly entity Books   as projection on my.Books;
+  @readonly entity Authors as projection on my.Authors;
+}
