@@ -14,7 +14,10 @@
     "typescript": "^7.0.0"
   },
   "scripts": {
-    "start": "cds-serve"
+    "start": "cds-serve",
+    "start:dev": "cds-tsx watch",
+    "typecheck": "tsc --noEmit",
+    "build": "cds build --production"
   },
   "private": true,
   "imports": {
