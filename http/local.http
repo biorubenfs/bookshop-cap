@@ -1,0 +1,44 @@
+# Peticiones contra el servidor local (npm run start:dev → http://localhost:4004).
+# En local no hay autenticación: CatalogService no lleva @requires.
+# Pulsa "Send Request" encima de cada petición. Los bloques se separan con ###.
+
+@base = http://localhost:4004/catalog
+
+### Documento de servicio: lista las entidades expuestas
+GET {{base}}/
+
+### Esquema OData (EDMX) del servicio
+GET {{base}}/$metadata
+
+### Todos los libros
+GET {{base}}/Books
+
+### Un libro por clave (Wuthering Heights)
+GET {{base}}/Books(7a2b9b3e-0002-4000-8000-000000000001)
+
+### Solo algunas columnas, ordenadas por precio descendente
+GET {{base}}/Books?$select=title,price,stock&$orderby=price desc
+
+### Libros con su autor incrustado
+GET {{base}}/Books?$expand=author($select=name)
+
+### Libros que el handler marca "(en oferta)": stock > 100
+GET {{base}}/Books?$filter=stock gt 100
+
+### Trampa: con $select=title el handler no recibe stock y no marca nada
+GET {{base}}/Books?$filter=stock gt 100&$select=title
+
+### Autores con sus libros
+GET {{base}}/Authors?$expand=books($select=title,stock)
+
+### Cuántos libros hay
+GET {{base}}/Books/$count
+
+### Escritura: falla con 405 porque las entidades son @readonly
+POST {{base}}/Books
+Content-Type: application/json
+
+{
+  "title": "Prueba",
+  "stock": 1
+}

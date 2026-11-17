@@ -1,0 +1,37 @@
+# Peticiones contra bookshop-srv desplegada en el space dev.
+# Los valores salen de http/.env (copia de .env.example, fuera de git).
+# Orden: 1) pide el token, 2) lanza cualquier otra petición.
+
+@base = {{$dotenv SRV_URL}}/catalog
+@token = {{getToken.response.body.access_token}}
+
+### 1. Token de XSUAA por client credentials (con la key de bookshop-auth)
+# @name getToken
+POST {{$dotenv XSUAA_URL}}/oauth/token
+Authorization: Basic {{$dotenv XSUAA_CLIENTID}} {{$dotenv XSUAA_CLIENTSECRET}}
+Content-Type: application/x-www-form-urlencoded
+
+grant_type=client_credentials
+
+### Sin token: 401, srv solo acepta peticiones con JWT
+GET {{base}}/Books
+
+### Todos los libros
+GET {{base}}/Books
+Authorization: Bearer {{token}}
+
+### Libros con su autor incrustado
+GET {{base}}/Books?$expand=author($select=name)
+Authorization: Bearer {{token}}
+
+### Libros que el handler marca "(en oferta)": stock > 100
+GET {{base}}/Books?$filter=stock gt 100
+Authorization: Bearer {{token}}
+
+### Autores con sus libros
+GET {{base}}/Authors?$expand=books($select=title,stock)
+Authorization: Bearer {{token}}
+
+### Esquema OData del servicio desplegado
+GET {{base}}/$metadata
+Authorization: Bearer {{token}}

@@ -5,3 +5,6 @@ mta_archives/
 *.mtar
 .cdsrc-private.json
 default-env.json
+
+# Secretos para los .http de REST Client
+.env
