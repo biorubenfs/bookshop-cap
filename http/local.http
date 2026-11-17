@@ -42,3 +42,14 @@ Content-Type: application/json
   "title": "Prueba",
   "stock": 1
 }
+
+### Crear un libro en AdminService (devuelve 201 con el ID generado)
+POST http://localhost:4004/admin/Books
+Content-Type: application/json
+
+{
+  "title": "Agnes Grey",
+  "stock": 150,
+  "price": 9.95,
+  "author_ID": "7a2b9b3e-0001-4000-8000-000000000001"
+}

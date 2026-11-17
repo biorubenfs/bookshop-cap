@@ -35,3 +35,16 @@ Authorization: Bearer {{token}}
 ### Esquema OData del servicio desplegado
 GET {{base}}/$metadata
 Authorization: Bearer {{token}}
+
+### Crear un libro en AdminService (devuelve 201 con el ID generado)
+# Requiere haber redesplegado con srv/admin-service.cds.
+POST {{$dotenv SRV_URL}}/admin/Books
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "title": "Agnes Grey",
+  "stock": 150,
+  "price": 9.95,
+  "author_ID": "7a2b9b3e-0001-4000-8000-000000000001"
+}
