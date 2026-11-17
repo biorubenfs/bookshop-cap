@@ -8,3 +8,6 @@ default-env.json
 
 # Secretos para los .http de REST Client
 .env
+
+# Base de datos SQLite local (cds.requires.db en desarrollo)
+db.sqlite*
